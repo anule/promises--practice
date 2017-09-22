@@ -76,11 +76,9 @@ function problemB () {
    *
    */
 
+  //leave filenames as is
   var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return (promisifiedReadFile('poem-two/' + 'stanza-0' + n + '.txt').then(function(stanza){
-      blue(stanza);
-    })
-    );
+    return 'poem-two/' + 'stanza-0' + n + '.txt';
   });
 
   // callback version
@@ -109,7 +107,14 @@ function problemB () {
   // }
   // promisifiedReadFile('done').then((done) => console.log('done'));
 
-  Promise.all(filenames).then(() => console.log('done'));
+  //create array of promises
+  let promisesArray = [];
+  for (var i = 0; i < filenames.length; i++){
+    let promise = promisifiedReadFile(filenames[i]).then(blue);
+    promisesArray.push(promise);
+  }
+
+  Promise.all(promisesArray).then(() => console.log('done'));
 }
 
 function problemC () {
