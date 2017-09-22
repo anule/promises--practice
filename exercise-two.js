@@ -212,9 +212,20 @@ function problemE () {
    *
    */
 
+
+   //Instructor (Emily's) solution
   var fs = require('fs');
   function promisifiedWriteFile (filename, str) {
-    // your code here
+    // fs.writeFile(filename, function(err, result){
+    //   if (err) //reject with that error
+    //   else //resolve with the result
+    // });
 
+    return new Promise(function(resolve, reject){
+      fs.writeFile(filename, function(err, result){
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
   }
 }
