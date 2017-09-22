@@ -62,7 +62,6 @@ function problemA () {
 
   }
 
-}
 
 function problemB () {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
