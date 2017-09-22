@@ -44,21 +44,23 @@ function problemA () {
    */
 
   // callback version
-  // readFile('poem-one/stanza-01.txt', function (err, stanza) {
-  //   console.log('-- A. callback version --');
-  //   blue(stanza);
-  // });
+  readFile('poem-one/stanza-01.txt', function (err, stanza) {
+    console.log('-- A. callback version --');
+    blue(stanza);
+  });
 
   // promise version
   promisifiedReadFile('‘poem-one/stanza-01.txt’').
-    then(function success(stanza){
-      console.log('-- A. callback version --');
-      blue(stanza);
-    }).
-    then(function error(err)
-    {
-      console.log('some issue'+err);
-    });
+  then(function success(stanza){
+    console.log('-- A. callback version --');
+    blue(stanza);
+  }).
+  then(function error(err)
+  {
+    console.log('“some issue”'+err);
+  })
+
+  }
 
 }
 
