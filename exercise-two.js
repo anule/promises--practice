@@ -157,8 +157,9 @@ function problemD () {
    *
    */
 
+  //leave filenames array as is
   var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return promisifiedReadFile('poem-two/' + 'stanza-0' + n + '.txt');
+    return 'poem-two/' + 'stanza-0' + n + '.txt';
   });
   var randIdx = Math.floor(Math.random() * filenames.length);
   filenames[randIdx] = 'wrong-file-name-' + (randIdx + 1) + '.txt';
@@ -181,7 +182,16 @@ function problemD () {
 
   // promise version
   // ???
-  Promise.each(filenames, function(stanza) {
+
+  //make an array of promises
+  var promisesArray = [];
+  for (var i = 0; i < filenames.length; i++) {
+    var promise = promisifiedReadFile(filenames[i]);
+    promisesArray.push(promise);
+  }
+
+  //pass array of promises to Promise.each
+  Promise.each(promisesArray, function(stanza) {
     blue(stanza);
   }).catch((err) => magenta(err)).then(() => console.log('done'));
 }
