@@ -128,7 +128,7 @@ function problemC () {
    */
 
   var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return (promisifiedReadFile('poem-two/' + 'stanza-0' + n + '.txt'));
+    return 'poem-two/' + 'stanza-0' + n + '.txt';
   });
 
   // callback version
@@ -147,9 +147,15 @@ function problemC () {
 
   // promise version
   // ???
-  Promise.each(filenames, function(stanza){
-    blue(stanza);
-  }).then(() => console.log('done'));
+
+  //create array of promises
+  var promisesArray = [];
+  for (var i = 0; i < filenames.length; i++) {
+    let promise = promisifiedReadFile(filenames[i]);
+    promisesArray.push(promise);
+  }
+
+  Promise.each(promisesArray, blue).then(() => console.log('done'));
 }
 
 function problemD () {
@@ -196,9 +202,7 @@ function problemD () {
   }
 
   //pass array of promises to Promise.each
-  Promise.each(promisesArray, function(stanza) {
-    blue(stanza);
-  }).catch((err) => magenta(err)).then(() => console.log('done'));
+  Promise.each(promisesArray, blue).catch(magenta).then(() => console.log('done'));
 }
 
 function problemE () {
@@ -211,5 +215,6 @@ function problemE () {
   var fs = require('fs');
   function promisifiedWriteFile (filename, str) {
     // your code here
+
   }
 }
